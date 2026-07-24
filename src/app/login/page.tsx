@@ -1,9 +1,9 @@
 'use client';
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/context/ThemeContext';
-import { BriefcaseIcon, AlertTriangleIcon, SunIcon, MoonIcon } from '@/components/Icons';
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { BriefcaseIcon, AlertTriangleIcon, SunIcon, MoonIcon } from '../../components/Icons';
 
 export default function LoginPage() {
   const { login } = useAuth();

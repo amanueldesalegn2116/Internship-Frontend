@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { AuthProvider } from '@/context/AuthContext';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { AuthProvider } from '../context/AuthContext';
+import { ThemeProvider } from '../context/ThemeContext';
 
 export const metadata: Metadata = {
   title: 'InternHub — Applicant Management',

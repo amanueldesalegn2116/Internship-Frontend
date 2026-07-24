@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { applicantsApi, Applicant, ApplicationStatus, InternshipTrack } from '@/lib/api';
+import { applicantsApi, Applicant, ApplicationStatus, InternshipTrack } from '../lib/api';
 import { CloseIcon, AlertTriangleIcon, CheckCircleIcon, FileTextIcon, UserIcon } from './Icons';
 
 const STATUSES: ApplicationStatus[] = ['Pending', 'Shortlisted', 'Accepted', 'Rejected'];

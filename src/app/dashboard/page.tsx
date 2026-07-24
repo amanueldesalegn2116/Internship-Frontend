@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import AppLayout from '@/components/AppLayout';
-import { dashboardApi, DashboardSummary, ApplicationStatus, InternshipTrack } from '@/lib/api';
+import AppLayout from '../../components/AppLayout';
+import { dashboardApi, DashboardSummary, ApplicationStatus, InternshipTrack } from '../../lib/api';
 import {
   UsersIcon,
   ClockIcon,
@@ -9,7 +9,7 @@ import {
   XCircleIcon,
   FileTextIcon,
   BriefcaseIcon
-} from '@/components/Icons';
+} from '../../components/Icons';
 
 const TRACK_LABELS: Record<InternshipTrack, string> = {
   Frontend_Development: 'Frontend Development',

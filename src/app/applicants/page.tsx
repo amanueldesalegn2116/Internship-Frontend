@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
-import AppLayout from '@/components/AppLayout';
-import { applicantsApi, Applicant, ApplicationStatus, InternshipTrack } from '@/lib/api';
-import ApplicantModal from '@/components/ApplicantModal';
+import AppLayout from '../../components/AppLayout';
+import { applicantsApi, Applicant, ApplicationStatus, InternshipTrack } from '../../lib/api';
+import ApplicantModal from '../../components/ApplicantModal';
 import {
   SearchIcon,
   PlusIcon,
@@ -11,7 +11,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   UsersIcon
-} from '@/components/Icons';
+} from '../../components/Icons';
 
 const STATUSES: ApplicationStatus[] = ['Pending', 'Shortlisted', 'Accepted', 'Rejected'];
 const TRACKS: InternshipTrack[] = [
