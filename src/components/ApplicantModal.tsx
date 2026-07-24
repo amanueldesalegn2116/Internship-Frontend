@@ -46,19 +46,42 @@ export default function ApplicantModal({ applicant, onClose, onSaved }: Props) {
 
   const update = (field: string, value: string) => setForm((f) => ({ ...f, [field]: value }));
 
+  // Extract error message from backend response (handles both string and string[] formats)
+  const extractError = (err: unknown, fallback: string): string => {
+    const msg = (err as { response?: { data?: { message?: string | string[] } } })?.response?.data?.message;
+    if (Array.isArray(msg)) return msg.join('. ');
+    if (typeof msg === 'string') return msg;
+    return fallback;
+  };
+
+  // Strip empty strings from optional fields so backend validators (e.g. @IsUrl) don't reject them
+  const cleanPayload = (data: Record<string, unknown>): Record<string, unknown> => {
+    const optional = ['phone', 'resumeUrl', 'coverLetter', 'notes'];
+    const cleaned: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (optional.includes(key) && value === '') {
+        // omit empty optional fields entirely
+        continue;
+      }
+      cleaned[key] = value;
+    }
+    return cleaned;
+  };
+
   const handleSave = async () => {
     setError('');
     setLoading(true);
     try {
       if (isEdit && applicant) {
-        await applicantsApi.update(applicant.id, form);
+        // On edit via details tab, send profile fields only (not status — that has its own tab/endpoint)
+        const { status, notes, ...profileFields } = form;
+        await applicantsApi.update(applicant.id, cleanPayload(profileFields) as Partial<Applicant>);
       } else {
-        await applicantsApi.create(form);
+        await applicantsApi.create(cleanPayload(form) as Partial<Applicant>);
       }
       onSaved();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
-      setError(typeof msg === 'string' ? msg : 'Failed to save applicant');
+      setError(extractError(err, 'Failed to save applicant'));
     } finally {
       setLoading(false);
     }
@@ -72,8 +95,7 @@ export default function ApplicantModal({ applicant, onClose, onSaved }: Props) {
       await applicantsApi.updateStatus(applicant.id, form.status);
       onSaved();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
-      setError(typeof msg === 'string' ? msg : 'Invalid status transition');
+      setError(extractError(err, 'Invalid status transition'));
     } finally {
       setLoading(false);
     }
@@ -87,8 +109,7 @@ export default function ApplicantModal({ applicant, onClose, onSaved }: Props) {
       await applicantsApi.updateNotes(applicant.id, form.notes);
       onSaved();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
-      setError(typeof msg === 'string' ? msg : 'Failed to save internal notes');
+      setError(extractError(err, 'Failed to save internal notes'));
     } finally {
       setLoading(false);
     }
