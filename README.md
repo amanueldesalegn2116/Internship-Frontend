@@ -37,9 +37,13 @@ An enterprise-level admin web dashboard for managing internship applications, bu
    - Filter dropdowns by Application Status and Internship Track.
    - Paginated candidate table with dynamic action controls.
    - Interactive `ApplicantModal` supporting:
-     - **Profile Details**: View and update full applicant details.
+     - **Profile Details**: View and update applicant details with automatic empty-string sanitization (preventing validation errors on optional fields like `resumeUrl`).
      - **Status Transitions**: Status updates with warning banners enforcing business rules (**Rejected → Accepted blocked**).
      - **Internal Notes**: Confidential admin evaluation notes with real-time character counter (1,000 char max).
+
+5. **API Proxying & Documentation Rewrites**:
+   - Next.js rewrite rules proxy `/docs` and `/api/docs` requests directly to backend Swagger UI.
+   - Modern SVG vector icons with explicit CSS sizing utility classes (`w-4`, `w-5`, `w-6`) preventing layout distortion.
 
 5. **Responsive Layout**:
    - Desktop sidebar navigation with active indicator states.
