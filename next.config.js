@@ -10,8 +10,20 @@ const nextConfig = {
         destination: `${baseUrl}/docs`,
       },
       {
+        source: '/docs/:path*',
+        destination: `${baseUrl}/docs/:path*`,
+      },
+      {
         source: '/api/docs',
         destination: `${baseUrl}/api/docs`,
+      },
+      {
+        source: '/api/docs/:path*',
+        destination: `${baseUrl}/api/docs/:path*`,
+      },
+      {
+        source: '/api',
+        destination: `${baseUrl}/api`,
       },
       {
         source: '/api/:path*',
